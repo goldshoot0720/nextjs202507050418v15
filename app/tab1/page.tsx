@@ -5,7 +5,17 @@ export default function Tab1() {
     <>
       <p>Data Structures and Algorithms</p>
       <p>Linked List</p>
-      <Link href="/Singly_Linked_List">Singly Linked List</Link>
+      <p>
+        <Link href="/Singly_Linked_List">Singly Linked List</Link>
+      </p>
+      <p>
+        <Link href="/Circular_Singly_Linked_List">
+          Circular Singly Linked List
+        </Link>
+      </p>
+      <p>
+        <Link href="/Doubly_Linked_List">Doubly Linked List</Link>
+      </p>
     </>
   );
 }

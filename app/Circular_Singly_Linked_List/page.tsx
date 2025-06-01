@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-export default function Singly_Linked_List() {
+export default function Circular_Singly_Linked_List() {
   class Node {
     constructor(value) {
       this.value = value;
@@ -16,21 +16,31 @@ export default function Singly_Linked_List() {
     }
     toString() {
       if (this.length === 0) {
-        return "Empty";
+        return "null";
       }
       if (this.length === 1) {
         return this.head.value;
       }
       let node = this.head;
       let str = "";
-      while (node) {
+      while (node.next !== this.head) {
         str += node.value;
         if (node.next) {
           str += " -> ";
         }
         node = node.next;
       }
+      str += node.value;
       return str;
+    }
+    toTailString() {
+      if (this.length === 0) {
+        return "null";
+      }
+      if (this.length === 1) {
+        return this.head.value;
+      }
+      return `tail is ${this.tail.value}\ntail's next is ${this.tail.next.value}\n`;
     }
     append(value) {
       if (this.length === 0) {
@@ -40,6 +50,7 @@ export default function Singly_Linked_List() {
       } else {
         this.tail.next = new Node(value);
         this.tail = this.tail.next;
+        this.tail.next = this.head;
         this.length += 1;
       }
     }
@@ -47,10 +58,17 @@ export default function Singly_Linked_List() {
     insert(value, index) {}
     traverse() {
       let node = this.head;
-      while (node) {
+      if (this.length === 0) {
+        console.log(node);
+      }
+      if (this.length === 1) {
+        console.log(node.value);
+      }
+      while (node.next !== this.head) {
         console.log(node.value);
         node = node.next;
       }
+      console.log(node.value);
     }
     search(target) {}
     get(index) {}
@@ -68,7 +86,7 @@ export default function Singly_Linked_List() {
 
   return (
     <>
-      <p>Doubly Linked List</p>
+      <p>Circular Singly Linked List</p>
       <p>
         <input
           className="text-blue-600"
@@ -89,6 +107,12 @@ export default function Singly_Linked_List() {
         </button>
       </p>
       <p>toString:{linkedList.toString()}</p>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: String(linkedList.toTailString()).replace(/\n/g, "<br/>"),
+        }}
+      />
+
       <p>length:{linkedList.length}</p>
     </>
   );
