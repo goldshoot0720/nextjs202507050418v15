@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 export default function Singly_Linked_List() {
   class Node {
-    constructor(value) {
+    constructor(value: number) {
       this.value = value;
       this.next = null;
     }
