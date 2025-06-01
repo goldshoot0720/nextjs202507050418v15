@@ -44,7 +44,7 @@ export default function Doubly_Linked_List() {
 
     toReverseString(): string {
       if (this.length === 0 || this.tail === null) {
-        return "Empty";
+        return "null";
       }
       if (this.length === 1 && this.tail) {
         return String(this.tail.value);

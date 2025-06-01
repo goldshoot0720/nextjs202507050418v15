@@ -81,7 +81,7 @@ export default function Singly_Linked_List() {
 
   return (
     <>
-      <p>Doubly Linked List</p>
+      <p>Singly Linked List</p> {/* 這裡改成 Singly */}
       <p>
         <input
           className="text-blue-600"

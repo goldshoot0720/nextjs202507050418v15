@@ -25,15 +25,16 @@ export default function Circular_Singly_Linked_List() {
       if (this.length === 0 || this.head === null) {
         return "null";
       }
-      let node = this.head;
+      let node: ListNode | null = this.head;
       let str = "";
       do {
-        str += node!.value;
-        node = node!.next;
-        if (node !== this.head) {
+        if (node === null) break; // 防止意外的 null
+        str += node.value;
+        node = node.next;
+        if (node !== null && node !== this.head) {
           str += " -> ";
         }
-      } while (node !== this.head && node !== null);
+      } while (node !== null && node !== this.head);
       return str;
     }
 
