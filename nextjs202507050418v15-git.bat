@@ -2,7 +2,7 @@ git init
 
 git add .
  
-git commit -m "Doubly Linked List 3"
+git commit -m "Tab1 Slug"
 
 git remote add origin https://github.com/goldshoot0720/nextjs202507050418v15.git
 
