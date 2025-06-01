@@ -4,6 +4,7 @@ export default function Doubly_Linked_List() {
   class ListNode {
     value: number;
     next: ListNode | null;
+    prev: ListNode | null;
     constructor(value: number) {
       this.value = value;
       this.next = null;
@@ -12,6 +13,9 @@ export default function Doubly_Linked_List() {
   }
 
   class LinkedList {
+    head: ListNode | null;
+    tail: ListNode | null;
+    length: number;
     constructor() {
       this.head = null;
       this.tail = null;

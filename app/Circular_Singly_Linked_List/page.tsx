@@ -11,6 +11,9 @@ export default function Circular_Singly_Linked_List() {
   }
 
   class LinkedList {
+    head: ListNode | null;
+    tail: ListNode | null;
+    length: number;
     constructor() {
       this.head = null;
       this.tail = null;
