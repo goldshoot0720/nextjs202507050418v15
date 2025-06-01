@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 export default function Singly_Linked_List() {
-  class Node {
+  class ListNode {
     constructor(value: number) {
       this.value = value;
       this.next = null;
@@ -16,7 +16,7 @@ export default function Singly_Linked_List() {
     }
     toString() {
       if (this.length === 0) {
-        return "Empty";
+        return "null";
       }
       if (this.length === 1) {
         return this.head.value;
@@ -34,11 +34,11 @@ export default function Singly_Linked_List() {
     }
     append(value) {
       if (this.length === 0) {
-        this.tail = new Node(value);
+        this.tail = new ListNode(value);
         this.head = this.tail;
         this.length = 1;
       } else {
-        this.tail.next = new Node(value);
+        this.tail.next = new ListNode(value);
         this.tail = this.tail.next;
         this.length += 1;
       }
