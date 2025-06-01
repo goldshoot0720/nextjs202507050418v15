@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 export default function Circular_Singly_Linked_List() {
   class Node {
-    constructor(value: any) {
+    constructor(value) {
       this.value = value;
       this.next = null;
     }

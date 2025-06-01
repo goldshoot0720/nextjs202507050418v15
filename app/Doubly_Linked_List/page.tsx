@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 export default function Doubly_Linked_List() {
   class Node {
-    constructor(value: any) {
+    constructor(value) {
       this.value = value;
       this.next = null;
       this.prev = null;
