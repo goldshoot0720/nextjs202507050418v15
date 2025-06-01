@@ -1,4 +1,8 @@
-export default function Tab1Slug({ params }: { params: { slug: string } }) {
+interface Props {
+  params: { slug: string };
+}
+
+export default function Tab1Slug({ params }: Props) {
   return (
     <>
       <h1>Tab1 Slug</h1>
