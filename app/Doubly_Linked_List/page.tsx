@@ -6,6 +6,7 @@ export default function Doubly_Linked_List() {
     value: number;
     next: ListNode | null;
     prev: ListNode | null;
+
     constructor(value: number) {
       this.value = value;
       this.next = null;
@@ -25,52 +26,54 @@ export default function Doubly_Linked_List() {
     }
 
     toString(): string {
-      if (this.length === 0 || this.head === null) {
-        return "null";
-      }
+      if (!this.head) return "null";
+
       let node: ListNode | null = this.head;
-      let str = "";
+      let result = "";
+
       while (node) {
-        str += node.value;
+        result += node.value;
         if (node.next) {
-          str += " <-> ";
+          result += " <-> ";
         }
         node = node.next;
       }
-      return str;
+
+      return result;
     }
 
     toReverseString(): string {
-      if (this.length === 0 || this.tail === null) {
-        return "null";
-      }
+      if (!this.tail) return "null";
+
       let node: ListNode | null = this.tail;
-      let str = "";
+      let result = "";
+
       while (node) {
-        str += node.value;
+        result += node.value;
         if (node.prev) {
-          str += " <-> ";
+          result += " <-> ";
         }
         node = node.prev;
       }
-      return str;
+
+      return result;
     }
 
-    append(value: number) {
+    append(value: number): void {
       const newNode = new ListNode(value);
-      if (this.length === 0) {
+      if (!this.head || !this.tail) {
         this.head = newNode;
         this.tail = newNode;
-      } else if (this.tail !== null) {
+      } else {
         this.tail.next = newNode;
         newNode.prev = this.tail;
         this.tail = newNode;
       }
-      this.length += 1;
+      this.length++;
     }
 
-    traverse() {
-      console.log("traverse");
+    traverse(): void {
+      console.log("traverse:");
       let node: ListNode | null = this.head;
       while (node) {
         console.log(node.value);
@@ -78,8 +81,8 @@ export default function Doubly_Linked_List() {
       }
     }
 
-    traverseReverse() {
-      console.log("traverseReverse");
+    traverseReverse(): void {
+      console.log("traverseReverse:");
       let node: ListNode | null = this.tail;
       while (node) {
         console.log(node.value);
@@ -89,35 +92,44 @@ export default function Doubly_Linked_List() {
   }
 
   const [dummy, setDummy] = useState(0);
-  const linkedListRef = useRef(new LinkedList());
+  const linkedListRef = useRef<LinkedList>(new LinkedList());
   const linkedList = linkedListRef.current;
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState<number>(0);
 
   return (
-    <>
-      <p>Doubly Linked List</p>
-      <p>
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-2">Doubly Linked List</h2>
+
+      <div className="mb-2">
         <input
-          className="text-blue-600"
           type="number"
           value={num}
           onChange={(e) => setNum(Number(e.target.value))}
+          className="border px-2 py-1 text-blue-600"
         />
-      </p>
-      <p>
+      </div>
+
+      <div className="mb-4">
         <button
-          className="text-blue-600"
           onClick={() => {
             linkedList.append(num);
-            setDummy(dummy + 1); // 觸發畫面更新
+            setDummy(dummy + 1); // 強制重新渲染
           }}
+          className="bg-blue-100 text-blue-600 px-3 py-1 border rounded"
         >
           append
         </button>
+      </div>
+
+      <p>
+        <strong>toString:</strong> {linkedList.toString()}
       </p>
-      <p>toString: {linkedList.toString()}</p>
-      <p>toReverseString: {linkedList.toReverseString()}</p>
-      <p>length: {linkedList.length}</p>
-    </>
+      <p>
+        <strong>toReverseString:</strong> {linkedList.toReverseString()}
+      </p>
+      <p>
+        <strong>length:</strong> {linkedList.length}
+      </p>
+    </div>
   );
 }

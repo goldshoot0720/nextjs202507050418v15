@@ -27,7 +27,7 @@ export default function Singly_Linked_List() {
       if (!this.head) return "null";
 
       let result = "";
-      let current = this.head;
+      let current: ListNode | null = this.head;
 
       while (current) {
         result += current.value;
@@ -65,7 +65,7 @@ export default function Singly_Linked_List() {
     }
 
     traverse(): void {
-      let current = this.head;
+      let current: ListNode | null = this.head;
       while (current) {
         console.log(current.value);
         current = current.next;
@@ -80,18 +80,18 @@ export default function Singly_Linked_List() {
 
   return (
     <>
-      <p>Singly Linked List</p>
+      <p className="text-xl font-bold mb-2">Singly Linked List</p>
       <p>
         <input
-          className="text-blue-600"
+          className="border px-2 py-1 text-blue-600"
           type="number"
           value={num}
           onChange={(e) => setNum(Number(e.target.value))}
         />
       </p>
-      <p>
+      <p className="mt-2">
         <button
-          className="text-blue-600"
+          className="text-blue-600 border px-3 py-1 mr-2"
           onClick={() => {
             linkedList.append(num);
             setDummy(dummy + 1); // 強制 re-render
@@ -100,7 +100,7 @@ export default function Singly_Linked_List() {
           append
         </button>
         <button
-          className="text-green-600 ml-2"
+          className="text-green-600 border px-3 py-1"
           onClick={() => {
             linkedList.prepend(num);
             setDummy(dummy + 1); // 強制 re-render
@@ -109,7 +109,7 @@ export default function Singly_Linked_List() {
           prepend
         </button>
       </p>
-      <p>toString: {linkedList.toString()}</p>
+      <p className="mt-4">toString: {linkedList.toString()}</p>
       <p>length: {linkedList.length}</p>
     </>
   );

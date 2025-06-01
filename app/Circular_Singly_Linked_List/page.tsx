@@ -8,80 +8,66 @@ export default function Circular_Singly_Linked_List() {
 
     constructor(value: number) {
       this.value = value;
-      // 暫時設為自身，會在 append 時正確設置
-      this.next = this;
+      this.next = this; // 預設指向自己
     }
   }
 
   class LinkedList {
-    head: ListNode | null;
-    tail: ListNode | null;
-    length: number;
-
-    constructor() {
-      this.head = null;
-      this.tail = null;
-      this.length = 0;
-    }
-
-    toString(): string {
-      if (this.length === 0 || this.head === null) {
-        return "null";
-      }
-      let node: ListNode = this.head;
-      let str = "";
-      let count = 0;
-
-      do {
-        str += node.value;
-        node = node.next;
-        count++;
-        if (node !== this.head) {
-          str += " -> ";
-        }
-        if (count > this.length) break; // 安全機制，避免意外無限迴圈
-      } while (node !== this.head);
-
-      return str;
-    }
-
-    toTailString(): string {
-      if (this.length === 0 || this.tail === null) {
-        return "null";
-      }
-      return `tail is ${this.tail.value}<br/>tail's next is ${
-        this.tail.next?.value ?? "null"
-      }`;
-    }
+    head: ListNode | null = null;
+    tail: ListNode | null = null;
+    length = 0;
 
     append(value: number) {
       const newNode = new ListNode(value);
       if (this.length === 0) {
         this.head = newNode;
         this.tail = newNode;
-        newNode.next = newNode; // 自己指向自己
+        newNode.next = newNode; // 單一節點自環
       } else if (this.tail && this.head) {
         this.tail.next = newNode;
         newNode.next = this.head;
         this.tail = newNode;
       }
-      this.length += 1;
+      this.length++;
+    }
+
+    toString(): string {
+      if (!this.head || this.length === 0) return "null";
+
+      const result: string[] = [];
+      let node = this.head;
+      let count = 0;
+
+      do {
+        result.push(String(node.value));
+        node = node.next;
+        count++;
+        if (count > this.length) break; // 安全機制
+      } while (node !== this.head);
+
+      return result.join(" -> ");
+    }
+
+    tailInfo(): string {
+      if (!this.tail || this.length === 0) return "tail is null";
+      return `tail is ${this.tail.value}, tail.next is ${
+        this.tail.next?.value ?? "null"
+      }`;
     }
 
     traverse() {
-      if (this.length === 0 || this.head === null) {
+      if (!this.head || this.length === 0) {
         console.log("null");
         return;
       }
 
-      let node: ListNode = this.head;
+      let node = this.head;
       let count = 0;
-
       do {
         console.log(node.value);
         node = node.next;
         count++;
-        if (count > this.length) break; // 安全機制
+        if (count > this.length) break;
       } while (node !== this.head);
     }
   }
@@ -92,34 +78,29 @@ export default function Circular_Singly_Linked_List() {
   const [num, setNum] = useState(0);
 
   return (
-    <>
-      <p>Circular Singly Linked List</p>
-      <p>
-        <input
-          className="text-blue-600"
-          type="number"
-          value={num}
-          onChange={(e) => setNum(Number(e.target.value))}
-        />
-      </p>
-      <p>
-        <button
-          className="text-blue-600"
-          onClick={() => {
-            linkedList.append(num);
-            setDummy(dummy + 1); // 觸發重新 render
-          }}
-        >
-          append
-        </button>
-      </p>
-      <p>toString: {linkedList.toString()}</p>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: linkedList.toTailString(),
-        }}
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-2">Circular Singly Linked List</h2>
+
+      <input
+        className="border p-1 text-blue-600"
+        type="number"
+        value={num}
+        onChange={(e) => setNum(Number(e.target.value))}
       />
-      <p>length: {linkedList.length}</p>
-    </>
+
+      <button
+        className="ml-2 px-3 py-1 bg-blue-500 text-white rounded"
+        onClick={() => {
+          linkedList.append(num);
+          setDummy((prev) => prev + 1);
+        }}
+      >
+        Append
+      </button>
+
+      <p className="mt-4">toString: {linkedList.toString()}</p>
+      <p>{linkedList.tailInfo()}</p>
+      <p>Length: {linkedList.length}</p>
+    </div>
   );
 }
