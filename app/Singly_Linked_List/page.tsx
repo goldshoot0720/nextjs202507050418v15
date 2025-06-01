@@ -1,9 +1,11 @@
 "use client";
 import { useState, useRef } from "react";
+
 export default function Singly_Linked_List() {
   class ListNode {
     value: number;
     next: ListNode | null;
+
     constructor(value: number) {
       this.value = value;
       this.next = null;
@@ -22,66 +24,63 @@ export default function Singly_Linked_List() {
     }
 
     toString(): string {
-      if (this.length === 0 || this.head === null) {
-        return "null";
-      }
-      if (this.length === 1 && this.head) {
-        return String(this.head.value);
-      }
-      let node = this.head;
-      let str = "";
-      while (node) {
-        str += node.value;
-        if (node.next) {
-          str += " -> ";
+      if (!this.head) return "null";
+
+      let result = "";
+      let current = this.head;
+
+      while (current) {
+        result += current.value;
+        if (current.next) {
+          result += " -> ";
         }
-        node = node.next;
+        current = current.next;
       }
-      return str;
+
+      return result;
     }
 
-    append(value: number) {
+    append(value: number): void {
       const newNode = new ListNode(value);
-      if (this.length === 0) {
+      if (!this.head || !this.tail) {
         this.head = newNode;
         this.tail = newNode;
-        this.length = 1;
       } else {
-        this.tail!.next = newNode;
+        this.tail.next = newNode;
         this.tail = newNode;
-        this.length += 1;
       }
+      this.length++;
     }
 
-    prepend(value: number) {
+    prepend(value: number): void {
       const newNode = new ListNode(value);
-      if (this.length === 0) {
+      if (!this.head || !this.tail) {
         this.head = newNode;
         this.tail = newNode;
       } else {
         newNode.next = this.head;
         this.head = newNode;
       }
-      this.length += 1;
+      this.length++;
     }
 
-    traverse() {
-      let node = this.head;
-      while (node) {
-        console.log(node.value);
-        node = node.next;
+    traverse(): void {
+      let current = this.head;
+      while (current) {
+        console.log(current.value);
+        current = current.next;
       }
     }
   }
 
   const [dummy, setDummy] = useState(0);
-  const linkedListRef = useRef(new LinkedList());
+  const linkedListRef = useRef<LinkedList>(new LinkedList());
   const linkedList = linkedListRef.current;
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState<number>(0);
 
   return (
     <>
-      <p>Singly Linked List</p> {/* 這裡改成 Singly */}
+      <p>Singly Linked List</p>
       <p>
         <input
           className="text-blue-600"
@@ -95,14 +94,23 @@ export default function Singly_Linked_List() {
           className="text-blue-600"
           onClick={() => {
             linkedList.append(num);
-            setDummy(dummy + 1);
+            setDummy(dummy + 1); // 強制 re-render
           }}
         >
           append
         </button>
+        <button
+          className="text-green-600 ml-2"
+          onClick={() => {
+            linkedList.prepend(num);
+            setDummy(dummy + 1); // 強制 re-render
+          }}
+        >
+          prepend
+        </button>
       </p>
-      <p>toString:{linkedList.toString()}</p>
-      <p>length:{linkedList.length}</p>
+      <p>toString: {linkedList.toString()}</p>
+      <p>length: {linkedList.length}</p>
     </>
   );
 }

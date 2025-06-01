@@ -17,6 +17,7 @@ export default function Doubly_Linked_List() {
     head: ListNode | null;
     tail: ListNode | null;
     length: number;
+
     constructor() {
       this.head = null;
       this.tail = null;
@@ -27,10 +28,7 @@ export default function Doubly_Linked_List() {
       if (this.length === 0 || this.head === null) {
         return "null";
       }
-      if (this.length === 1 && this.head) {
-        return String(this.head.value);
-      }
-      let node = this.head;
+      let node: ListNode | null = this.head;
       let str = "";
       while (node) {
         str += node.value;
@@ -46,10 +44,7 @@ export default function Doubly_Linked_List() {
       if (this.length === 0 || this.tail === null) {
         return "null";
       }
-      if (this.length === 1 && this.tail) {
-        return String(this.tail.value);
-      }
-      let node = this.tail;
+      let node: ListNode | null = this.tail;
       let str = "";
       while (node) {
         str += node.value;
@@ -66,18 +61,17 @@ export default function Doubly_Linked_List() {
       if (this.length === 0) {
         this.head = newNode;
         this.tail = newNode;
-        this.length = 1;
-      } else {
-        this.tail!.next = newNode;
+      } else if (this.tail !== null) {
+        this.tail.next = newNode;
         newNode.prev = this.tail;
         this.tail = newNode;
-        this.length += 1;
       }
+      this.length += 1;
     }
 
     traverse() {
       console.log("traverse");
-      let node = this.head;
+      let node: ListNode | null = this.head;
       while (node) {
         console.log(node.value);
         node = node.next;
@@ -86,7 +80,7 @@ export default function Doubly_Linked_List() {
 
     traverseReverse() {
       console.log("traverseReverse");
-      let node = this.tail;
+      let node: ListNode | null = this.tail;
       while (node) {
         console.log(node.value);
         node = node.prev;
@@ -115,7 +109,7 @@ export default function Doubly_Linked_List() {
           className="text-blue-600"
           onClick={() => {
             linkedList.append(num);
-            setDummy(dummy + 1);
+            setDummy(dummy + 1); // 觸發畫面更新
           }}
         >
           append

@@ -4,10 +4,12 @@ import { useState, useRef } from "react";
 export default function Circular_Singly_Linked_List() {
   class ListNode {
     value: number;
-    next: ListNode | null;
+    next: ListNode;
+
     constructor(value: number) {
       this.value = value;
-      this.next = null;
+      // 暫時設為自身，會在 append 時正確設置
+      this.next = this;
     }
   }
 
@@ -15,6 +17,7 @@ export default function Circular_Singly_Linked_List() {
     head: ListNode | null;
     tail: ListNode | null;
     length: number;
+
     constructor() {
       this.head = null;
       this.tail = null;
@@ -25,16 +28,20 @@ export default function Circular_Singly_Linked_List() {
       if (this.length === 0 || this.head === null) {
         return "null";
       }
-      let node: ListNode | null = this.head;
+      let node: ListNode = this.head;
       let str = "";
+      let count = 0;
+
       do {
-        if (node === null) break; // 防止意外的 null
         str += node.value;
         node = node.next;
-        if (node !== null && node !== this.head) {
+        count++;
+        if (node !== this.head) {
           str += " -> ";
         }
-      } while (node !== null && node !== this.head);
+        if (count > this.length) break; // 安全機制，避免意外無限迴圈
+      } while (node !== this.head);
+
       return str;
     }
 
@@ -52,25 +59,29 @@ export default function Circular_Singly_Linked_List() {
       if (this.length === 0) {
         this.head = newNode;
         this.tail = newNode;
-        newNode.next = newNode; // 指向自己形成圓形
-        this.length = 1;
-      } else {
-        this.tail!.next = newNode;
+        newNode.next = newNode; // 自己指向自己
+      } else if (this.tail && this.head) {
+        this.tail.next = newNode;
         newNode.next = this.head;
         this.tail = newNode;
-        this.length += 1;
       }
+      this.length += 1;
     }
 
     traverse() {
       if (this.length === 0 || this.head === null) {
-        console.log(null);
+        console.log("null");
         return;
       }
-      let node = this.head;
+
+      let node: ListNode = this.head;
+      let count = 0;
+
       do {
         console.log(node.value);
-        node = node.next!;
+        node = node.next;
+        count++;
+        if (count > this.length) break; // 安全機制
       } while (node !== this.head);
     }
   }
@@ -96,7 +107,7 @@ export default function Circular_Singly_Linked_List() {
           className="text-blue-600"
           onClick={() => {
             linkedList.append(num);
-            setDummy(dummy + 1);
+            setDummy(dummy + 1); // 觸發重新 render
           }}
         >
           append
