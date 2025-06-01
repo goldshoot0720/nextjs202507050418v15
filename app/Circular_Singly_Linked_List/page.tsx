@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+
 export default function Circular_Singly_Linked_List() {
   class ListNode {
     value: number;
@@ -19,69 +20,58 @@ export default function Circular_Singly_Linked_List() {
       this.tail = null;
       this.length = 0;
     }
-    toString() {
-      if (this.length === 0) {
+
+    toString(): string {
+      if (this.length === 0 || this.head === null) {
         return "null";
-      }
-      if (this.length === 1) {
-        return this.head!.value;
       }
       let node = this.head;
       let str = "";
-      while (node.next !== this.head) {
-        str += node.value;
-        if (node.next) {
+      do {
+        str += node!.value;
+        node = node!.next;
+        if (node !== this.head) {
           str += " -> ";
         }
-        node = node.next;
-      }
-      str += node.value;
+      } while (node !== this.head && node !== null);
       return str;
     }
-    toTailString() {
-      if (this.length === 0) {
+
+    toTailString(): string {
+      if (this.length === 0 || this.tail === null) {
         return "null";
       }
-      if (this.length === 1) {
-        return this.head!.value;
-      }
-      return `tail is ${this.tail.value}\ntail's next is ${this.tail.next.value}\n`;
+      return `tail is ${this.tail.value}<br/>tail's next is ${
+        this.tail.next?.value ?? "null"
+      }`;
     }
-    append(value) {
+
+    append(value: number) {
+      const newNode = new ListNode(value);
       if (this.length === 0) {
-        this.tail = new ListNode(value);
-        this.head = this.tail;
+        this.head = newNode;
+        this.tail = newNode;
+        newNode.next = newNode; // 指向自己形成圓形
         this.length = 1;
       } else {
-        this.tail.next = new ListNode(value);
-        this.tail = this.tail.next;
-        this.tail.next = this.head;
+        this.tail!.next = newNode;
+        newNode.next = this.head;
+        this.tail = newNode;
         this.length += 1;
       }
     }
-    prepend(value) {}
-    insert(value, index) {}
+
     traverse() {
+      if (this.length === 0 || this.head === null) {
+        console.log(null);
+        return;
+      }
       let node = this.head;
-      if (this.length === 0) {
-        console.log(node);
-      }
-      if (this.length === 1) {
+      do {
         console.log(node.value);
-      }
-      while (node.next !== this.head) {
-        console.log(node.value);
-        node = node.next;
-      }
-      console.log(node.value);
+        node = node.next!;
+      } while (node !== this.head);
     }
-    search(target) {}
-    get(index) {}
-    setValue(index, value) {}
-    popFirst() {}
-    pop() {}
-    remove(index) {}
-    deleteAll() {}
   }
 
   const [dummy, setDummy] = useState(0);
@@ -111,14 +101,13 @@ export default function Circular_Singly_Linked_List() {
           append
         </button>
       </p>
-      <p>toString:{linkedList.toString()}</p>
-      <div
+      <p>toString: {linkedList.toString()}</p>
+      <p
         dangerouslySetInnerHTML={{
-          __html: String(linkedList.toTailString()).replace(/\n/g, "<br/>"),
+          __html: linkedList.toTailString(),
         }}
       />
-
-      <p>length:{linkedList.length}</p>
+      <p>length: {linkedList.length}</p>
     </>
   );
 }

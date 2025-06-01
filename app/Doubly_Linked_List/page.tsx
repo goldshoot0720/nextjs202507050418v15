@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+
 export default function Doubly_Linked_List() {
   class ListNode {
     value: number;
@@ -21,12 +22,13 @@ export default function Doubly_Linked_List() {
       this.tail = null;
       this.length = 0;
     }
-    toString() {
-      if (this.length === 0) {
+
+    toString(): string {
+      if (this.length === 0 || this.head === null) {
         return "null";
       }
-      if (this.length === 1) {
-        return this.head!.value;
+      if (this.length === 1 && this.head) {
+        return String(this.head.value);
       }
       let node = this.head;
       let str = "";
@@ -40,12 +42,12 @@ export default function Doubly_Linked_List() {
       return str;
     }
 
-    toReverseString() {
-      if (this.length === 0) {
+    toReverseString(): string {
+      if (this.length === 0 || this.tail === null) {
         return "Empty";
       }
-      if (this.length === 1) {
-        return this.head!.value;
+      if (this.length === 1 && this.tail) {
+        return String(this.tail.value);
       }
       let node = this.tail;
       let str = "";
@@ -59,21 +61,20 @@ export default function Doubly_Linked_List() {
       return str;
     }
 
-    append(value) {
+    append(value: number) {
+      const newNode = new ListNode(value);
       if (this.length === 0) {
-        this.tail = new ListNode(value);
-        this.head = this.tail;
+        this.head = newNode;
+        this.tail = newNode;
         this.length = 1;
       } else {
-        this.tail.next = new ListNode(value);
-        let node = this.tail;
-        this.tail = this.tail.next;
-        this.tail.prev = node;
+        this.tail!.next = newNode;
+        newNode.prev = this.tail;
+        this.tail = newNode;
         this.length += 1;
       }
     }
-    prepend(value) {}
-    insert(value, index) {}
+
     traverse() {
       console.log("traverse");
       let node = this.head;
@@ -82,6 +83,7 @@ export default function Doubly_Linked_List() {
         node = node.next;
       }
     }
+
     traverseReverse() {
       console.log("traverseReverse");
       let node = this.tail;
@@ -90,13 +92,6 @@ export default function Doubly_Linked_List() {
         node = node.prev;
       }
     }
-    search(target) {}
-    get(index) {}
-    setValue(index, value) {}
-    popFirst() {}
-    pop() {}
-    remove(index) {}
-    deleteAll() {}
   }
 
   const [dummy, setDummy] = useState(0);
@@ -126,9 +121,9 @@ export default function Doubly_Linked_List() {
           append
         </button>
       </p>
-      <p>toString:{linkedList.toString()}</p>
-      <p>toReverseString:{linkedList.toReverseString()}</p>
-      <p>length:{linkedList.length}</p>
+      <p>toString: {linkedList.toString()}</p>
+      <p>toReverseString: {linkedList.toReverseString()}</p>
+      <p>length: {linkedList.length}</p>
     </>
   );
 }

@@ -14,17 +14,19 @@ export default function Singly_Linked_List() {
     head: ListNode | null;
     tail: ListNode | null;
     length: number;
+
     constructor() {
       this.head = null;
       this.tail = null;
       this.length = 0;
     }
-    toString() {
-      if (this.length === 0) {
+
+    toString(): string {
+      if (this.length === 0 || this.head === null) {
         return "null";
       }
-      if (this.length === 1) {
-        return this.head!.value;
+      if (this.length === 1 && this.head) {
+        return String(this.head.value);
       }
       let node = this.head;
       let str = "";
@@ -37,19 +39,32 @@ export default function Singly_Linked_List() {
       }
       return str;
     }
-    append(value) {
+
+    append(value: number) {
+      const newNode = new ListNode(value);
       if (this.length === 0) {
-        this.tail = new ListNode(value);
-        this.head = this.tail;
+        this.head = newNode;
+        this.tail = newNode;
         this.length = 1;
       } else {
-        this.tail.next = new ListNode(value);
-        this.tail = this.tail.next;
+        this.tail!.next = newNode;
+        this.tail = newNode;
         this.length += 1;
       }
     }
-    prepend(value) {}
-    insert(value, index) {}
+
+    prepend(value: number) {
+      const newNode = new ListNode(value);
+      if (this.length === 0) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+      this.length += 1;
+    }
+
     traverse() {
       let node = this.head;
       while (node) {
@@ -57,13 +72,6 @@ export default function Singly_Linked_List() {
         node = node.next;
       }
     }
-    search(target) {}
-    get(index) {}
-    setValue(index, value) {}
-    popFirst() {}
-    pop() {}
-    remove(index) {}
-    deleteAll() {}
   }
 
   const [dummy, setDummy] = useState(0);
