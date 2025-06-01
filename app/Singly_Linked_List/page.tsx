@@ -24,7 +24,7 @@ export default function Singly_Linked_List() {
         return "null";
       }
       if (this.length === 1) {
-        return this.head.value;
+        return this.head!.value;
       }
       let node = this.head;
       let str = "";

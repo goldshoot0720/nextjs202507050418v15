@@ -24,7 +24,7 @@ export default function Circular_Singly_Linked_List() {
         return "null";
       }
       if (this.length === 1) {
-        return this.head.value;
+        return this.head!.value;
       }
       let node = this.head;
       let str = "";
@@ -43,7 +43,7 @@ export default function Circular_Singly_Linked_List() {
         return "null";
       }
       if (this.length === 1) {
-        return this.head.value;
+        return this.head!.value;
       }
       return `tail is ${this.tail.value}\ntail's next is ${this.tail.next.value}\n`;
     }

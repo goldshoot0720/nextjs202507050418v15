@@ -26,7 +26,7 @@ export default function Doubly_Linked_List() {
         return "null";
       }
       if (this.length === 1) {
-        return this.head.value;
+        return this.head!.value;
       }
       let node = this.head;
       let str = "";
@@ -45,7 +45,7 @@ export default function Doubly_Linked_List() {
         return "Empty";
       }
       if (this.length === 1) {
-        return this.head.value;
+        return this.head!.value;
       }
       let node = this.tail;
       let str = "";
