@@ -1,7 +1,11 @@
+import Link from "next/link";
+
 export default function Tab1() {
   return (
     <>
-      <h1>Tab1</h1>
+      <p>Data Structures and Algorithms</p>
+      <p>Linked List</p>
+      <Link href="/Singly_Linked_List">Singly Linked List</Link>
     </>
   );
 }
