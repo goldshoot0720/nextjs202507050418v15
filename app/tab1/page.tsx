@@ -16,6 +16,12 @@ export default function Tab1() {
       <p>
         <Link href="/Doubly_Linked_List">Doubly Linked List</Link>
       </p>
+      <p>
+        <Link href="/Recursion">Recursion</Link>
+      </p>
+      <p>
+        <Link href="/Recursion3">Recursion3</Link>
+      </p>
     </>
   );
 }
