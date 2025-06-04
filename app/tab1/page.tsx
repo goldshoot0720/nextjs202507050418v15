@@ -22,6 +22,9 @@ export default function Tab1() {
       <p>
         <Link href="/Recursion3">Recursion3</Link>
       </p>
+      <p>
+        <Link href="/Binary_Tree"> Binary Tree</Link>
+      </p>
     </>
   );
 }
